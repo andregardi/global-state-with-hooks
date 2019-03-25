@@ -12,10 +12,9 @@ const Level2 = () => {
     setAllLevel3(newAllLevel3);
   };
   return (
-    <div style={{ margin: "50px", padding: "50px", border: "1px solid black" }}>
+    <div style={{ margin: "20px", padding: "20px", border: "1px solid black" }}>
       <h3>level 2 component</h3>
       <button onClick={newLevel3}>Add a Level 3 component</button>
-      <br />
       <br />
       {mappedLevel3}
     </div>

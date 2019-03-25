@@ -9,7 +9,17 @@ const Level3 = props => {
   };
 
   return (
-    <div style={{ background: "#eee", border: "1px solid black", textAlign:"center" }}>
+    <div
+      style={{
+        display: "inline-block",
+        height: "100px",
+        width: "200px",
+        margin: "20px",
+        background: "#eee",
+        border: "1px solid black",
+        textAlign: "center"
+      }}
+    >
       <span>level 3 component N {index}</span>
       <p>counter: {globalState.counter}</p>
       <button onClick={add1Global}>+1 to global</button>
