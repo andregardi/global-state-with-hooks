@@ -1,13 +1,16 @@
 import React from 'react';
-import { useGlobal } from '../hooks/globalState';
+import PropTypes from 'prop-types';
+import useGlobal from '../hooks';
 
 const Level3 = (props) => {
   const { index } = props;
 
-  const [globalState, actions] = useGlobal();
+  const [state, actions] = useGlobal();
 
   const add1Global = () => {
-    actions.counter.add(1);
+    actions.add(1);
+    actions.double();
+    actions.counterActions.add4();
   };
 
   return (
@@ -27,12 +30,18 @@ level 3 component N
         {index}
       </span>
       <p>
-counter:
-        {globalState.counter}
+        counter:
+        {state.counter}
       </p>
-      <button onClick={add1Global}>+1 to global</button>
+      <button type="button" onClick={add1Global}>
+        +1 to global
+      </button>
     </div>
   );
+};
+
+Level3.propTypes = {
+  index: PropTypes.number.isRequired,
 };
 
 export default Level3;
