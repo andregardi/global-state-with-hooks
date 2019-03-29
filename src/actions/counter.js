@@ -1,8 +1,8 @@
-import { globalState, setGlobalState } from "../hooks/globalState";
+// import { globalState, setGlobalState } from "../hooks/globalState";
 
-const add = (amount) => {
-  const counter = globalState.counter + amount;
-  setGlobalState({ counter });
-};
+// const add = (amount) => {
+//   const counter = globalState.counter + amount;
+//   setGlobalState({ counter });
+// };
 
-export default add;
+// export default add;

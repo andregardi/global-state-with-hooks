@@ -1,34 +1,34 @@
-import React from 'react';
-import { useGlobal } from '../hooks/globalState';
+import React from "react";
+import { hookx } from "../hooks/globalState";
 
-const Level3 = (props) => {
+const useGlobal = hookx({ counter: 1 });
+
+const Level3 = props => {
   const { index } = props;
 
-  const [globalState, actions] = useGlobal();
+  const [state, setState] = useGlobal();
 
   const add1Global = () => {
-    actions.counter.add(1);
+    const counter = state.counter + 1;
+    setState({ counter });
   };
 
   return (
     <div
       style={{
-        display: 'inline-block',
-        height: '100px',
-        width: '200px',
-        margin: '20px',
-        background: '#eee',
-        border: '1px solid black',
-        textAlign: 'center',
+        display: "inline-block",
+        height: "100px",
+        width: "200px",
+        margin: "20px",
+        background: "#eee",
+        border: "1px solid black",
+        textAlign: "center"
       }}
     >
-      <span>
-level 3 component N
-        {index}
-      </span>
+      <span>level 3 component N{index}</span>
       <p>
-counter:
-        {globalState.counter}
+        counter:
+        {state.counter}
       </p>
       <button onClick={add1Global}>+1 to global</button>
     </div>

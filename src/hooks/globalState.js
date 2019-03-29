@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import * as counter from '../actions/counter';
+import { useState, useEffect } from "react";
+// import * as counter from "../actions/counter";
 
 // export const store = { state: {}, mutations: {}, actions: {} };
 // let listeners = [];
@@ -32,31 +32,43 @@ import * as counter from '../actions/counter';
 //   counter: { ...counter },
 // };
 
-export const a = 0;
-
-const runLlisteners = (store) => {
-  store.listeners.forEach((listener) => {
-    listener(store.state);
-  });
+const removeListenerOnUmount = (listeners, listener) => {
+  useEffect(
+    () => () => {
+      listeners = listener.filter(l => l !== listener);
+    },
+    []
+  );
 };
 
-const setState = (newState) => {
+function setState(newState) {
   this.state = { ...this.state, ...newState };
-  runLlisteners(this.state);
-};
+  this.listeners.forEach(listener => {
+    listener(this.state);
+  });
+}
 
-export const newStore = (initialState, mutations, actions) => {
+function useCustom() {
+  console.log(listeners);
+  const { state, listeners, setState } = this;
+  const listener = useState()[1];
+  useEffect(
+    () => () => {
+      console.log(listeners);
+      this.listeners = this.listener.filter(l => l !== listener);
+      console.log(listeners);
+    },
+    []
+  );
+  // removeListenerOnUmount(listeners, listener);
+  if (!listeners.includes(listener)) {
+    listeners.push(listener);
+  }
+  return [state, setState];
+}
+
+export const hookx = (initialState, mutations, actions) => {
   const store = { state: initialState, listeners: [] };
-  // store.runLlisteners = runLlisteners;
   store.setState = setState.bind(store);
-
-  store.useCustom = () => {
-    const listener = useState()[1];
-    const { listeners } = store;
-    if (!listeners.includes(listener)) {
-      listeners.push(listener);
-    }
-  };
-
-  return store;
+  return useCustom.bind(store);
 };
