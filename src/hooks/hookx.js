@@ -1,5 +1,3 @@
-import { useState, useEffect } from 'react';
-
 function setState(newState) {
   this.state = { ...this.state, ...newState };
   this.listeners.forEach((listener) => {
@@ -7,12 +5,14 @@ function setState(newState) {
   });
 }
 
-function useCustom() {
-  const listener = useState()[1];
-  const { listeners } = this;
-  if (!listeners.includes(listener)) {
-    listeners.push(listener);
-  }
+function useCustom(React) {
+  const newListener = React.useState()[1];
+  React.useEffect(() => {
+    this.listeners.push(newListener);
+    return () => {
+      this.listeners = this.listeners.filter(listener => listener !== newListener);
+    };
+  }, []);
   return [this.state, this.actions];
 }
 
@@ -29,11 +29,11 @@ function associateActions(store, actions) {
   return associatedActions;
 }
 
-const hookx = (initialState, actions) => {
+const hookx = (React, initialState, actions) => {
   const store = { state: initialState, listeners: [] };
   store.setState = setState.bind(store);
   store.actions = associateActions(store, actions);
-  return useCustom.bind(store);
+  return useCustom.bind(store, React);
 };
 
 export default hookx;

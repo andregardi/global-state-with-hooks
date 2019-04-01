@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import useGlobal from '../hooks';
 
 const Level3 = (props) => {
-  const { index } = props;
+  const { index, deleteMe } = props;
 
   const [state, actions] = useGlobal();
 
@@ -25,10 +25,7 @@ const Level3 = (props) => {
         textAlign: 'center',
       }}
     >
-      <span>
-level 3 component N
-        {index}
-      </span>
+      <span>{`level 3 component N ${index}`}</span>
       <p>
         counter:
         {state.counter}
@@ -36,12 +33,20 @@ level 3 component N
       <button type="button" onClick={add1Global}>
         +1 to global
       </button>
+      <button type="button" onClick={deleteMe}>
+        delete
+      </button>
     </div>
   );
 };
 
 Level3.propTypes = {
   index: PropTypes.number.isRequired,
+  deleteMe: PropTypes.func,
+};
+
+Level3.defaultProps = {
+  deleteMe: null,
 };
 
 export default Level3;
